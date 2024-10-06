@@ -1,13 +1,9 @@
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 import os
 from app.config import config
 
-
-
-# db = SQLAlchemy()
-# migrate = Migrate()
+db = SQLAlchemy()
 
 def create_app():
     app_context = os.getenv("FLASK_CONTEXT")
@@ -17,7 +13,10 @@ def create_app():
     configuration = config[app_context if app_context else 'development']
     app.config.from_object(configuration)
 
-    # db.init_app(app)
-    # migrate.init_app(app, db)
-    
+    db.init_app(app)
+
+    from app.resource import producto
+    app.register_blueprint(producto, url_prefix='/api/v1')
+
     return app
+
