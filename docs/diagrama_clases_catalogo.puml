@@ -1,0 +1,16 @@
+@startuml Catalogo - Diagrama de clases
+
+class Model {
+ clase de SQLAlchemy
+}
+
+class Producto {
+    - id: int
+    - nombre: string
+    - precio: float
+    - activado: boolean
+}
+
+Model <|-- Producto
+
+@enduml
