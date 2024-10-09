@@ -15,8 +15,8 @@ def create_app():
 
     db.init_app(app)
 
-    from app.resource import producto
-    app.register_blueprint(producto, url_prefix='/api/v1')
+    from app.resource import catalogo
+    app.register_blueprint(catalogo, url_prefix='/api/v1')
 
     return app
 

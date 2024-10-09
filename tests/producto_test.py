@@ -1,7 +1,7 @@
 import unittest, os
 from app import create_app, db
 from app.models import Producto
-class UserTestCase(unittest.TestCase):
+class ProductoTestCase(unittest.TestCase):
     
     def setUp(self):
         # User
@@ -18,7 +18,7 @@ class UserTestCase(unittest.TestCase):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
-    def test_user(self):
+    def test_producto(self):
         
         producto = self.__get_producto()
         # db.session.add(user)
