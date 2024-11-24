@@ -1,9 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_caching import Cache
 import os
-from app.config import config
+from pdchaos.middleware.contrib.flask.flask_middleware import FlaskMiddleware
+from app.config import config, cache_config
 
 db = SQLAlchemy()
+middleware = FlaskMiddleware()
+cache = Cache()
 
 def create_app():
     app_context = os.getenv("FLASK_CONTEXT")
@@ -13,7 +17,12 @@ def create_app():
     configuration = config[app_context if app_context else 'development']
     app.config.from_object(configuration)
 
+    app.config['CHAOS_MIDDLEWARE_APPLICATION_NAME'] = 'MS1'
+    app.config['CHAOS_MIDDLEWARE_APPLICATION_ENV'] = 'development'
+
+
     db.init_app(app)
+    cache.init_app(app, config=cache_config)
 
     from app.resources.home import catalogo
     app.register_blueprint(catalogo, url_prefix='/api/v1')
