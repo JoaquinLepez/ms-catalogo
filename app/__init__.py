@@ -15,7 +15,7 @@ def create_app():
 
     db.init_app(app)
 
-    from app.resource import catalogo
+    from app.resources.home import catalogo
     app.register_blueprint(catalogo, url_prefix='/api/v1')
 
     return app
