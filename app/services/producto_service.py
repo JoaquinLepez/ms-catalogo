@@ -7,10 +7,10 @@ repository = ProductoRepository()
 class ProductoService:
 
     def all(self) -> list[Producto]:
-        result = cache.get('roles')
+        result = cache.get('productos')
         if result is None:
             result = repository.all()
-            cache.set('roles', result, timeout=15)
+            cache.set('productos', result, timeout=15)
         return result
     
     def add(self, producto: Producto) -> Producto:
@@ -19,10 +19,10 @@ class ProductoService:
         return producto
     
     def find_activo(self, id: int) -> Producto:
-        result = cache.get(f'role_{id}')
+        result = cache.get(f'producto_{id}')
         if result is None:
             result = repository.find_activo(id)
-            cache.set(f'role_{id}', result, timeout=15)
+            cache.set(f'producto_{id}', result, timeout=15)
         
         return result 
 

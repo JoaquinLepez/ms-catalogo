@@ -24,7 +24,7 @@ def create_app():
     db.init_app(app)
     cache.init_app(app, config=cache_config)
 
-    from app.resources.home import catalogo
+    from app.resource import catalogo
     app.register_blueprint(catalogo, url_prefix='/api/v1')
 
     return app
