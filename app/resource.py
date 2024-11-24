@@ -31,13 +31,9 @@ def add():
 
 @catalogo.route('/productos/<int:id>', methods=['GET'])
 def find_activo(id):
-    response_builder = ResponseBuilder()
-    producto = producto_service.find_activo(id)
+    producto = producto_schema.dump(producto_service.find_activo(id))
+    status_code = 404
     if producto:
-        data = producto_schema.dump(producto)
-        response_builder.add_message("Producto found").add_status_code(200).add_data(data)
-        return response_schema.dump(response_builder.build()), 200
-    else:
-        response_builder.add_message("Producto not found").add_status_code(404).add_data({'id': id})
-        return response_schema.dump(response_builder.build()), 404
+        status_code = 200
+    return producto, status_code
 
