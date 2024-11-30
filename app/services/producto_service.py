@@ -19,10 +19,6 @@ class ProductoService:
         return producto
     
     def find_activo(self, id: int) -> Producto:
-        result = cache.get(f'producto_{id}')
-        if result is None:
-            result = repository.find_activo(id)
-            cache.set(f'producto_{id}', result, timeout=15)
-        
+        result = repository.find_activo(id)    
         return result 
 
