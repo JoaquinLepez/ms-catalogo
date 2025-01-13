@@ -2,12 +2,18 @@ from flask import Blueprint, request
 from marshmallow import ValidationError
 from .services import ProductoService, ResponseBuilder
 from .mapping import ProductoSchema, ResponseSchema
+from app import db
 
 producto_schema = ProductoSchema()
 producto_service = ProductoService()
 response_schema = ResponseSchema()
 
 catalogo = Blueprint('catalogo', __name__)
+
+@catalogo.route('/', methods=['GET'])
+def index():
+    db.create_all()
+    return "hola mundo", 200
 
 
 @catalogo.route('/productos', methods=['GET'])
