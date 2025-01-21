@@ -12,12 +12,6 @@ catalogo = Blueprint('catalogo', __name__)
 
 @catalogo.route('/', methods=['GET'])
 def index():
-    db.create_all()
-    return "hola mundo", 200
-
-
-@catalogo.route('/productos', methods=['GET'])
-def get_all():
     response_builder = ResponseBuilder()
     data = producto_schema.dump(producto_service.all(), many=True)
     response_builder.add_message("Productos found").add_status_code(200).add_data(data)
