@@ -18,7 +18,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db, version_table='alembic_version_catalogo')
 
-    from app.resource import catalogo
+    from app.resources import catalogo
     app.register_blueprint(catalogo, url_prefix='/api/v1')
 
     return app
