@@ -1,13 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_caching import Cache
 from flask_migrate import Migrate
 import os
-from app.config import config, cache_config
+from app.config import config
 
 db = SQLAlchemy()
 migrate = Migrate()
-cache = Cache()
 
 def create_app():
     app_context = os.getenv("FLASK_CONTEXT")
@@ -19,7 +17,6 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db, version_table='alembic_version_catalogo')
-    cache.init_app(app, config=cache_config)
 
     from app.resource import catalogo
     app.register_blueprint(catalogo, url_prefix='/api/v1')
